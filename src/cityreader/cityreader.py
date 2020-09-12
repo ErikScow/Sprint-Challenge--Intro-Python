@@ -77,11 +77,43 @@ for c in cities:
 
 # TODO Get latitude and longitude values from the user
 
+topLeftLat, topLeftLon = input('Enter top left point as such [lat,lon]: ').split(',')
+bottomRightLat, bottomRightLon = input('Enter bottom right point as such [lat,lon]: ').split(',')
+
+
+
+
+
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
+
+  if float(lat1) < float(lat2):
+    x = lat1
+    lat1 = lat2
+    lat2 = x
+  if float(lon1) < float(lon2):
+    x = lon1
+    lon1 = lon2
+    lon2 = x
+  #lat1 = float(topLeftLat)
+  #lon1 = float(topLeftLon)
+  #lat2 = float(bottomRightLat)
+  #lon2 = float(bottomRightLon)
   # within will hold the cities that fall within the specified region
   within = []
   
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
 
+  within = [x for x in cities if lat2 < x.lat < lat1 and lon2 < x.lon < lon1]
+
+  #import csv
+
+  #with open('cities.csv', mode='r') as csv_file:
+  #    csv_reader = csv.DictReader(csv_file)
+  #    for row in csv_reader:
+  #      if lat2 < float(row['lat']) < lat1 and lon2 < float(row['lng']) < lon1:
+  #        within.append(City(row['city'], float(row['lat']), float(row['lng'])))
+
   return within
+
+print(cityreader_stretch(float(topLeftLat), float(topLeftLon), float(bottomRightLat), float(bottomRightLon), cities))
